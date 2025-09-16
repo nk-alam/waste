@@ -42,11 +42,38 @@ const envOrigins = (process.env.FRONTEND_URLS || process.env.FRONTEND_URL || 'ht
   .map(o => o.trim());
 const vercelOrigin = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null;
 const allowedOrigins = [...envOrigins, ...(vercelOrigin ? [vercelOrigin] : [])];
+
+// Add common development and production origins
+const commonOrigins = [
+  'http://localhost:3000',
+  'http://localhost:5173',
+  'http://127.0.0.1:3000',
+  'http://127.0.0.1:5173',
+  'https://localhost:3000',
+  'https://localhost:5173',
+  'https://waste-bwu.vercel.app'
+];
+
+const allAllowedOrigins = [...new Set([...allowedOrigins, ...commonOrigins])];
+
 app.use(cors({
   origin: function (origin, callback) {
     // Allow requests with no origin (like curl or server-to-server)
     if (!origin) return callback(null, true);
-    if (allowedOrigins.includes(origin)) return callback(null, true);
+
+    // Check exact matches first
+    if (allAllowedOrigins.includes(origin)) return callback(null, true);
+
+    // Allow Vercel preview deployments (pattern matching)
+    if (origin && origin.includes('.vercel.app')) return callback(null, true);
+
+    // Allow localhost with any port in development
+    if (process.env.NODE_ENV !== 'production' && origin && origin.startsWith('http://localhost:')) {
+      return callback(null, true);
+    }
+
+    console.log('CORS blocked origin:', origin);
+    console.log('Allowed origins:', allAllowedOrigins);
     return callback(new Error('Not allowed by CORS'));
   },
   credentials: true
