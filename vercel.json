@@ -5,7 +5,8 @@
       "src": "server/index.js",
       "use": "@vercel/node",
       "config": {
-        "maxLambdaSize": "50mb"
+        "maxLambdaSize": "50mb",
+        "maxDuration": 30
       }
     },
     {
@@ -16,11 +17,6 @@
       }
     }
   ],
-  "functions": {
-    "server/index.js": {
-      "maxDuration": 30
-    }
-  },
   "rewrites": [
     {
       "source": "/api/:path*",
