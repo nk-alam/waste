@@ -212,7 +212,7 @@ const WebsiteLayout: React.FC<WebsiteLayoutProps> = ({ children }) => {
           </div>
           
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 EcoWaste India Management System by QBrain Technologies. All rights reserved.</p>
+            <p>&copy; 2025 EcoWaste India Management System by QBrain Technologies. All rights reserved.</p>
             <p className="mt-2 text-sm">
               Supporting India's Swachh Bharat Mission | Smart Cities Initiative | Visit: <a href="https://qbrain.in" className="text-green-400 hover:text-green-300">qbrain.in</a>
             </p>
