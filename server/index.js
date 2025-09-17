@@ -51,7 +51,8 @@ const commonOrigins = [
   'http://127.0.0.1:5173',
   'https://localhost:3000',
   'https://localhost:5173',
-  'https://waste-bwu.vercel.app'
+  'https://waste-bwu.vercel.app',
+  'https://waste.qbrain.in'
 ];
 
 const allAllowedOrigins = [...new Set([...allowedOrigins, ...commonOrigins])];
